@@ -1,25 +1,35 @@
 #include "Library.h"
 int delete_spaces(char arr[]) {
 	int i = 0, j = 0, k = 0, count = 0, lenght = 0;
-	char spaces[] = { ' ','\v','\t' };
 	for (i = 0; arr[i] != '\n'; i++) {
-		for (j = 1; j <= 2; j++) {
-			if (arr[i] == spaces[j]) {
-				count = 0;
-				for (int m = i; arr[m] == spaces[j]; m++) {
-					count++;
-				}
-				k = i;
-				while (arr[k] != '\0') {
-					arr[k] = arr[k + count];
-					k++;
-				}
+		switch (arr[i]) {
+		case '\v':
+			count = 0;
+			for (j = i; arr[j] == '\v'; j++) {
+				count++;
 			}
+			k = i;
+			while (arr[k] != '\0') {
+				arr[k] = arr[k + count];
+				k++;
+			}
+			i--;
+		case '\t':
+			count = 0;
+			for (j = i; arr[j] == '\t'; j++) {
+				count++;
+			}
+			k = i;
+			while (arr[k] != '\0') {
+				arr[k] = arr[k + count];
+				k++;
+			}
+			i--;
 		}
 	}
 	k = 0, count = 0;
-	if (arr[0] == spaces[0]) {
-		for (i = 0; arr[i] == spaces[0]; i++) {
+	if (arr[0] == ' ') { 
+		for (i = 0; arr[i] == ' '; i++) {
 			count++;
 		}
 		while (arr[k] != '\0') {
@@ -27,14 +37,16 @@ int delete_spaces(char arr[]) {
 			k++;
 		}
 	}
+	count = 0;
 	for (i = 0; arr[i] != '\n'; i++)
 		lenght++;
-	if (arr[lenght--] == spaces[0]) {
-		for (i = lenght; arr[i] == spaces[0]; i--) {
+	if (arr[lenght - 1] == ' ') {
+		for (i = lenght - 1; arr[i] == ' '; i--) {
 			count++;
 		}
 		k = lenght;
-		while (arr[k] == ' ') {
+		arr[k - count] = '\n';
+		while (arr[k - 1] == ' ' || arr[k - 1] == '\n') {
 			arr[k] = '\0';
 			k--;
 		}
