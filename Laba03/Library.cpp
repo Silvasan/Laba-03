@@ -1,51 +1,43 @@
 #include "Library.h"
-int lenght_counter( char arr[]) {
+int stackoverflow(char arr[], int N) {
+	int i = 0, a = 0, tabs = 0, m = 0;
+	for (i = 0; arr[i] != '\n'; i++) {
+		a++;
+		if (arr[i] == '\t')
+			tabs++;
+	}
+	m = a - tabs + tabs * 8;
+	if (m >= N) {
+		printf("Oh.. Stackoverflow.. ;(\nTry again,please\n");
+		for(i=0; i<a; i++)
+			arr[i] = NULL;
+		return a;
+	}
+	return 0;
+}
+int lenght_counter(char arr[]) {
 	int a = 0;
 	for (int i = 0; arr[i] != '\n'; i++)
 		a++;
 	return a;
 }
-int delete_lead_spaces(char arr[], char symbol) {
-	int k = 0, count = 0;
-	for (int i = 0; arr[i] == symbol; i++) {
-		count++;
-	}
-	while (arr[k] != '\0') {
-		arr[k] = arr[k + count];
-		k++;
-	}
-	return *arr;
-}
-int delete_last_spaces(char arr[], char symbol, int lenght) {
-	int i = 0, k = 0, count = 0;
-	for ( i = lenght - 1; arr[i] == symbol; i--) {
-		count++;
-	}
-	k = lenght;
-	arr[k - count] = '\n';
-	while (arr[k-1] == symbol ||arr[k-1] == '\n') {
-		arr[k] = '\0';
-		k--;
-	}
-	return *arr;
-}
-int delete_lead_and_last_spaces(char arr[]) {
-	int i = 0, j = 0, lenght = 0;
-	while (arr[0] == ' ' || arr[0] == '\t') { 
-		switch (arr[0]) {
-		case '\t':
-		delete_lead_spaces(arr, '\t');
-		case ' ':
-		delete_lead_spaces(arr, ' ');
+int delete_tabs(char arr[]) {
+	int i = 0, j = 0, lenght = 0, count = 7;
+	lenght = lenght_counter(arr);
+	for (i = 0; arr[i] != '\n';i++) {
+		if (arr[i] == '\t') {
+			for (j = lenght; j != i; j--)
+				arr[j + count] = arr[j];
+			for (j = i; j <= i + count; j++)
+				arr[j] = ' ';
+			i += count;
+			lenght += count;
+			count = 7;
 		}
-	}
-	while (arr[(lenght=lenght_counter(arr)) - 1] == ' ' || arr[lenght - 1] == '\t') {
-		switch (arr[lenght - 1]) {
-		case ' ':
-			delete_last_spaces(arr, ' ', lenght);
-			continue;
-		case '\t':
-			delete_last_spaces(arr, '\t', lenght);
+		else {
+			count--;
+			if (count == -1)
+				count = 7;
 		}
 	}
 	return *arr;
