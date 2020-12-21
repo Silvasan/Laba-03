@@ -24,7 +24,7 @@ int main() {
 			break;
 		}
 	}
-	delete_spaces(str);
+	delete_lead_and_last_spaces(str);
 	printf("String:\n%s", str);
 	getchar();
 	return 0;
