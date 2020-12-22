@@ -8,7 +8,7 @@ int stackoverflow(char arr[], int N) {
 	}
 	m = a - tabs + tabs * 8;
 	if (m >= N) {
-		printf("Oh.. Stackoverflow.. ;(\nTry again,please\n");
+		printf("Oh.. Stackoverflow.. ;(\nTry again, please\n\n");
 		for(i=0; i<a; i++)
 			arr[i] = NULL;
 		return a;
