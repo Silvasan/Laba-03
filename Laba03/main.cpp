@@ -1,13 +1,14 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include "Library.h"
+#define N 300
 int main() {
-	char str[125] = "", buffer = 0;
+	char str[N] = "", buffer = 0;
 	int i = 0;
 	while (1) {
 		printf("Enter the string: ");
-		fgets(str, 125, stdin);
-		if (!(str[123] == '\0' || str[123] == '\n')) {
+		fgets(str, N, stdin);
+		if (!(str[N-2] == '\0' || str[N-2] == '\n')) {
 			buffer = getchar();
 			if (buffer != '\n') {
 				while (buffer != '\n')			//buffercleaner
